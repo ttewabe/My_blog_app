@@ -1,9 +1,11 @@
 const container = document.querySelector('.blogs') as HTMLElement;
+const searchForm = document.querySelector('.search') as HTMLFormElement;
 
-
-const renderPosts = async () => {
+const renderPosts = async (term: string | null) => {
     let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc';
-   
+    if (term) {
+        uri += `&q=${term}`;
+    }
     const res = await fetch(uri);
     const posts = await res.json();
 
@@ -22,6 +24,9 @@ const renderPosts = async () => {
     container.innerHTML = template;
 };
 
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    renderPosts((searchForm.term as HTMLInputElement).value.trim());
+});
 
-
-window.addEventListener('DOMContentLoaded', () => renderPosts());
+window.addEventListener('DOMContentLoaded', () => renderPosts(null));
