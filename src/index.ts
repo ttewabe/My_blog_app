@@ -1,10 +1,17 @@
 const container = document.querySelector('.blogs') as HTMLElement;
 const searchForm = document.querySelector('.search') as HTMLFormElement;
 
+
+type Blog={
+    id: number,
+    title:string,
+    body:string,
+    likes:number
+}
 const renderPosts = async (term: string | null) => {
     let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc';
     if (term) {
-        uri += `&q=${term}`;
+        uri += `&q=${term}`;//placeholder that will be replaced with the actual value of the term variable
     }
     const res = await fetch(uri);
     const posts = await res.json();
