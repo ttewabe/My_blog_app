@@ -1,13 +1,13 @@
 const container = document.querySelector('.blogs') as HTMLElement;
 const searchForm = document.querySelector('.search') as HTMLFormElement;
 
-
 type Blog={
     id: number,
     title:string,
     body:string,
     likes:number
 }
+
 const renderPosts = async (term: string | null) => {
     let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc';
     if (term) {

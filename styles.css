@@ -40,6 +40,34 @@ input, textarea {
 textarea {
   min-height:200px;
 }
+
+/*share social media*/
+.social-sharing {
+  margin: 10px;
+  display: flex;
+  justify-content:center;
+}
+.social-sharing a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  background:#36cca2;
+  padding: 16px;
+  border-radius:  10px;
+  margin: 20px 10;
+}
+.delete{
+  color: #000000;
+  font-weight: 700;
+  padding: 6px;
+  margin: 10px 0;
+}
+.details{
+  padding: 16px;
+  background: white;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
 /* post list */
 .post {
   padding: 16px;
