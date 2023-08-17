@@ -2,7 +2,7 @@
 
 /* base styles */
 body {
-  background: #eee;
+  background: #d5d5d5;
   font-family: 'Roboto';
   color: #444;
   max-width: 960px;
@@ -11,29 +11,43 @@ body {
 }
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 nav h1 {
   margin: 0;
+  align-items: center;
+  padding-right:50px;
 }
-nav a {
+.blog-new {
+ 
+  
+  max-width: 200px;
+}
+.search a {
   color: white;
   text-decoration: none;
   background: #36cca2;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
+  
+}
+.search button {
+  background-color: #73817d;;
+
 }
 form {
-  max-width: 500px;
+  width: 98%;
+  justify-content: space-between;
 }
 form input {
-  width: 100%;
+  width: 98%;
+  
 }
 input, textarea {
   display: block;
   margin: 16px 0;
   padding: 6px 10px;
-  width: 100%;
+  width: 98%;
   border: 1px solid #ddd;
   font-family: 'Roboto';
 }
@@ -56,10 +70,11 @@ textarea {
   margin: 20px 10;
 }
 .delete{
-  color: #000000;
+  color: #ffffff;
   font-weight: 700;
   padding: 6px;
   margin: 10px 0;
+  background-color: #73817d;;
 }
 .details{
   padding: 16px;
@@ -70,7 +85,8 @@ textarea {
 
 /* post list */
 .post {
-  padding: 16px;
+  width: 98%;
+  padding: 4px;
   background: white;
   border-radius: 10px;
   margin: 20px 0;
@@ -84,3 +100,32 @@ textarea {
 .post a {
   color: #36cca2;
 }
+
+/* update page  */
+.update-form input, textarea {
+  
+  margin: 5px;
+  padding: 4px;
+  border: 1px solid white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  margin: 5px;
+  padding: 4px;
+  border-radius: 5px;
+  background-color: #36cca2;
+  border: #36cca2;
+  color: #ffffff;
+  font-weight: 800;
+}
+input, textarea{
+  width: 98%;;
+  margin: 10px 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+

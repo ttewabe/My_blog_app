@@ -1,3 +1,5 @@
+import { API_URL } from './apiConfig';
+
 const form = document.querySelector('form') as HTMLFormElement;
 
 const createPost = async (e: Event) => {
@@ -7,7 +9,7 @@ const createPost = async (e: Event) => {
         body: (form.body as HTMLInputElement).value,
         likes: 10,
     };
-    await fetch('http://localhost:3000/posts', {
+    await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(doc),
         headers: { 'Content-Type': 'application/json' },

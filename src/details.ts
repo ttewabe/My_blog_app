@@ -1,21 +1,24 @@
+import { API_URL } from './apiConfig';
+
 const id = new URLSearchParams(window.location.search).get('id');
 const containerDetail = document.querySelector('.details') as HTMLElement;
 const deleteBtn = document.querySelector('.delete') as HTMLAnchorElement;
 
 const renderDetails = async () => {
-    const res = await fetch(`http://localhost:3000/posts/${id}`);
+    const res = await fetch(`${API_URL}/${id}`);
     const post = await res.json();
 
     const template = `
         <h1>${post.title}</h1>
         <p>${post.body}</p>
+        <a href="/update.html?id=${id}">Update</a>
         `;
     containerDetail.innerHTML = template;
 };
 
 deleteBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:3000/posts/${id}`, {
+    await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
     });
     window.location.replace('/index.html');
@@ -48,3 +51,10 @@ document.getElementById('facebook-share')?.addEventListener('click', (e) => {
     const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
     shareOnSocialMedia('Facebook', facebookShareUrl);
 });
+
+
+// Add an "Update" link
+const updateLink = document.createElement('a');
+updateLink.textContent = 'Update';
+updateLink.href = `/update.html?id=${id}`;
+containerDetail.appendChild(updateLink);
