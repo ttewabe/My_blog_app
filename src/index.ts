@@ -1,4 +1,3 @@
-import { API_URL } from './apiConfig';
 
 const container = document.querySelector('.blogs') as HTMLElement;
 const searchForm = document.querySelector('.search') as HTMLFormElement;
@@ -11,7 +10,7 @@ type Blog={
 }
 
 const renderPosts = async (term: string | null) => {
-    let uri = `${API_URL}?_sort=likes&_order=desc`;
+    let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc';
     if (term) {
         uri += `&q=${term}`;//placeholder that will be replaced with the actual value of the term variable
     }

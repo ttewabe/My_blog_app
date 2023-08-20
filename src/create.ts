@@ -5,8 +5,8 @@ const form = document.querySelector('form') as HTMLFormElement;
 const createPost = async (e: Event) => {
     e.preventDefault();
     const doc = {
-        title: (form.title as HTMLInputElement).value,
-        body: (form.body as HTMLInputElement).value,
+        title: (form.querySelector('#title') as HTMLInputElement).value,
+        body: (form.querySelector('#body') as HTMLInputElement).value,
         likes: 10,
     };
     await fetch(API_URL, {

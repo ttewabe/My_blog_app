@@ -1,4 +1,4 @@
-import { API_URL } from './apiConfig';
+//import { API_URL } from './apiConfig';
 
 // update.ts
 const form = document.querySelector('.update-form') as HTMLFormElement;
@@ -9,8 +9,9 @@ const updatePost = async (e: Event) => {
     const doc = {
         title: (form.querySelector('#title') as HTMLInputElement).value,
         body: (form.querySelector('#body') as HTMLTextAreaElement).value,
+        likes: 5,
     };
-    await fetch(`${API_URL}/${id}`, {
+    await fetch(`http://localhost:3000/posts/${id}`, {
         method: 'PUT',
         body: JSON.stringify(doc),
         headers: { 'Content-Type': 'application/json' },
