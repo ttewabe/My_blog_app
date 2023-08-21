@@ -16,7 +16,7 @@ const updatePost = async (e: Event) => {
         body: JSON.stringify(doc),
         headers: { 'Content-Type': 'application/json' },
     });
-    window.location.replace(`/details.html?id=${id}`);
+    window.location.replace(`/index.html?id=${id}`);
 };
 
 form.addEventListener('submit', updatePost);

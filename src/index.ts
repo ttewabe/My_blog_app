@@ -14,7 +14,13 @@ const renderPosts = async (term: string | null) => {
     if (term) {
         uri += `&q=${term}`;//placeholder that will be replaced with the actual value of the term variable
     }
-    const res = await fetch(uri);
+    try{
+        const res = await fetch(uri);
+    //check if response status is ok. The ok property of the response object is a boolean that indicates whether the HTTP request was successful. 
+    if (!res.ok){
+        throw new Error ('Network response is not work')
+    }
+    
     const posts = await res.json();
 
     let template = '';
@@ -39,6 +45,12 @@ const renderPosts = async (term: string | null) => {
             window.location.href = `/update.html?id=${postId}`;
         });
     });
+
+}catch(error){
+    //Handle the error
+    console.error('Error:', error);
+    container.innerHTML = '<p>Error loading posts. please check if the json server is running. </p>'
+}
 };
 
 searchForm.addEventListener('submit', (e) => {
