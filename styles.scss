@@ -1,0 +1,144 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+$bg: #38b8d7;
+$color: #ffffff;
+$text-bg:#e4e4e4;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  background: $color;
+  font-family: 'Roboto';
+  color: $primary-color;
+  max-width: 960px;
+  margin: 100px auto;
+  padding: 10px;
+}
+  nav {
+    display: flex;
+    justify-content: center;
+    h1 {
+      margin: 0;
+      align-items: center;
+      padding-right: 50px;
+    }
+  }
+
+.blog-new {
+  max-width: 200px;
+}
+
+.search a {
+  color: $color;
+  text-decoration: none;
+  background: $bg;
+  padding: 8px 20px;
+  border-radius: 50px;
+  margin-left: 20px;
+  border:$bg;
+  font-weight: 800;
+}
+  
+  form {
+    width: 98%;
+    justify-content: space-between;
+    input {
+      width: 98%;
+    }
+  }
+    input,
+    textarea {
+      display: block;
+      margin: 16px 10px;
+      padding: 6px 10px;
+      width: 98%;
+      border: 1px solid #ddd;
+      font-family: 'Roboto';
+    }
+    textarea {
+      min-height: 200px;
+    }
+  
+
+/* share social media */
+.social-sharing {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+.social-sharing a {
+  color: $color;
+  text-decoration: none;
+  background: $bg;
+  padding: 8px  20px;
+  border-radius: 50px;
+  margin: 0px 10;
+  border: $bg;
+  font-weight: 800;
+  }
+
+.delete {
+  color: $color;
+  text-decoration: none;
+  background: $bg;
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: $bg;
+  font-weight: 800;
+}
+
+.details {
+  padding: 16px;
+  background: $text-bg;
+  border-radius: 10px;
+  margin: 20px 0px;
+}
+
+/* post list */
+.post {
+  width: 98%;
+  padding: 4px;
+  background: $text-bg;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+  .post h2 {
+    margin: 0;
+  }
+  .post p {
+    margin-top: 0;
+  }
+.post a {
+  color: $bg;
+}
+
+/* update page */
+.update-form {
+  input, textarea {
+    margin: 5px;
+    padding: 4px;
+    background: $text-bg;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+  button {
+  text-decoration: none;
+  background: $bg;
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: #38b8d7;
+  color: $color;
+  font-weight: 800;
+  }
+  input,
+  textarea {
+    width: 98%;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 10px;
+    background: $text-bg;
+  }
+
