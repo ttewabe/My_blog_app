@@ -1,4 +1,3 @@
-
 const container = document.querySelector('.blogs') as HTMLElement;
 const searchForm = document.querySelector('.search') as HTMLFormElement;
 

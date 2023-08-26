@@ -1,3 +1,6 @@
+// Pagination
+
+
 Adding useful features to my blog page can enhance user experience and engagement. 
 
 User Comments and Discussions: Allow readers to leave comments on your blog posts. 
@@ -11,3 +14,89 @@ Tags and Categories: Implement a tagging and categorization system for your blog
 Featured Posts or Slider: Showcase featured or recent posts prominently on your blog's homepage. This can highlight your best or most recent content and catch the reader's attention.
 
 Email Subscription: Allow readers to subscribe to your blog via email. This way, they'll receive updates whenever you publish new content.
+
+
+when FilterIcon  open make filter icon active and when FilterIcon close make filter icon not active 
+"
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ColumnProps } from "primereact/column";
+import { IDataGridProps } from "./DataGrid";
+import { IDataGridColumn } from "./DataGrid.model";
+import { FilterPopup } from "./FilterPopup";
+import { FilterIcon } from "./DataGrid.style";
+
+export const useFilterable = (props: IDataGridProps, ref: React.MutableRefObject<any>) => {
+  const [showFilterPopup, setShowFilterPopup] = useState<boolean>(false);
+  const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
+  const [filterTemplate, setFilterTemplate] = useState<JSX.Element | null>(null);
+  const [filterIconContainer, setFilterIconContainer]= useState<HTMLSpanElement>();
+  const filterIconContainerRef= useRef<HTMLSpanElement>();
+  const selectedColumnIdRef = useRef<string>();
+
+  const prefix = "grid-" + Math.random().toString(36).substr(2, 9) + "-";
+
+  useEffect(() => {
+    if (showFilterPopup) {
+      setShowFilterPopup(false);
+    }
+
+    // Mark the column title to support style adjustment of other header icons.
+    (ref.current as HTMLDivElement)?.querySelectorAll(".mi-filterable").forEach(elem => {
+      elem.closest(".p-column-title")?.classList.add("mi-filterable-column");
+    });
+  }, [props.columns]);
+
+  const handleFilterIconClick = (event: React.MouseEvent<HTMLSpanElement>, column: IDataGridColumn) => {
+   const iconContainer = event.target as HTMLSpanElement;
+    filterIconContainerRef.current = filterIconContainer;
+    setSelectedColumnIdRef.current = column.id;
+    filterIconContainerRef.current?.classList.remove("active");
+
+    setFilterTemplate(column.filterTemplate?.(column) ?? null);
+    setSelectedColumnId(column.id);
+    setFilterIconContainer(iconContainer);
+
+    if (selectedColumnIdRef.current == selectedColumnId) {
+      setShowFilterPopup(!showFilterPopup);
+
+    } else {
+      setShowFilterPopup(true);
+      iconContainer?.classList.add("active");
+    }
+  };
+
+  const buildColumnProps = (columnProps: ColumnProps, column: IDataGridColumn): ColumnProps => {
+    return {
+      ...columnProps,
+      header: column.filterTemplate ? (
+        <span className="mi-filterable">
+          {columnProps.header}
+          <FilterIcon
+            id={prefix + column.id}
+            filtered={column.filtered}
+            onClick={(event: React.MouseEvent<HTMLSpanElement>) => handleFilterIconClick(event, column)}
+          ></FilterIcon>
+        </span>
+      ) : (
+        columnProps.header
+      )
+    };
+  };
+
+  const handleClose = () => {
+    setShowFilterPopup(false);
+    filterIconContainerRef.current?.classList.remove("active");
+    
+    setShowFilterPopup(true);
+  };
+
+  const filterPopup = showFilterPopup && selectedColumnId && filterTemplate && (
+    <FilterPopup targetId={prefix + selectedColumnId} onClose={() => handleClose()}>
+      {filterTemplate}
+    </FilterPopup>
+  );
+
+  return { buildColumnProps, filterPopup };
+};
+
+"

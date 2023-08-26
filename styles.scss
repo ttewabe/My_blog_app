@@ -1,4 +1,4 @@
-$font-stack: Helvetica, sans-serif;
+$font-stack:'Roboto', sans-serif;
 $primary-color: #333;
 $bg: #38b8d7;
 $color: #ffffff;
@@ -8,12 +8,12 @@ $text-bg:#e4e4e4;
 
 body {
   background: $color;
-  font-family: 'Roboto';
+  font-family: $font-stack;
   color: $primary-color;
   max-width: 960px;
   margin: 100px auto;
   padding: 10px;
-}
+
   nav {
     display: flex;
     justify-content: center;
@@ -23,24 +23,42 @@ body {
       padding-right: 50px;
       color: $bg;
       font-weight: 800;
-      font-size: 40px;
+      font-size: 35px;
     }
+  }
+  .update-value {
+    padding: 8px 20px;
+  border-radius: 50px;
+  border:1px solid #38b8d7;
+  color: $bg;
+  font-weight: 800;
+  background: $text-bg;
+  text-decoration: none;
+  &:hover{
+    background-color: $bg;
+    color: $color;
+  }
   }
 
 .blog-new {
   max-width: 200px;
 }
 
-.search a {
-  color: $color;
-  text-decoration: none;
-  background: $bg;
-  padding: 8px 20px;
-  border-radius: 50px;
-  border:$bg;
-  font-weight: 800;
+.search{
+  a {
+    color: $color;
+    text-decoration: none;
+    background: $bg;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border:$bg;
+    font-weight: 800;
 }
-
+div{
+  display: flex;
+  justify-content: space-between;
+}
+}
 form {
   width: 98%;
   justify-content: space-between;
@@ -81,11 +99,16 @@ form {
 .delete {
   color: $color;
   text-decoration: none;
-  background: $bg;
+  background: rgb(121, 10, 10);
   padding: 8px 20px;
   border-radius: 50px;
   border: $bg;
+  font-size: 17px;
   font-weight: 800;
+  &:hover{
+    background: rgb(84, 115, 125);
+    transition: background 2s;
+  }
 }
 
 .details {
@@ -116,6 +139,17 @@ form {
 .post a {
   color: $bg;
   margin: 10px;
+  margin-right: 50px;
+  text-decoration: none;
+  border-radius: 20px;
+  border:1px solid $text-bg;
+  padding: 8px;
+  &:hover{
+    // background-color: $bg;
+    padding: 8px;
+    background-color: $bg;
+    color: $color;
+  }
 }
 
 /* update page */
@@ -132,13 +166,16 @@ form {
   }
 }
   button {
-  text-decoration: none;
-  background: $bg;
   padding: 8px 20px;
   border-radius: 50px;
-  border: #38b8d7;
-  color: $color;
+  border:1px solid #38b8d7;
+  color: $bg;
   font-weight: 800;
+  background: $text-bg;
+  &:hover{
+    background-color: $bg;
+    color: $color;
+  }
   }
   input,
   textarea {
@@ -150,3 +187,18 @@ form {
     border: 1px solid $bg;
   }
 
+  //pagination 
+  .pagination-arrow {
+    text-decoration: none;
+    color: $bg;
+    font-weight: 800;
+    &:hover{
+      color: black;
+    }
+}
+  .pagination {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -15,11 +15,19 @@
     
     <form class="search">
       <input type="text" name="term" placeholder="search term">
-      <button type="submit">Search</button>
-      <a href="/create.html">Add a new blog</a>
+      <div>
+        <button type="submit">Search</button>
+        <a href="/create.html">Add a new blog</a>
+      </div>
     </form>
+
     <div class="blogs">
       <!-- inject blogs here -->
+    </div>
+
+    <div class="pagination">
+      <a id="prevPage" class="pagination-arrow" href="#">&#9664; Previous</a>
+      <a id="nextPage" class="pagination-arrow" href="#">Next &#9654;</a>
     </div>
 
     <script type="module" src="/src/index.ts"></script>

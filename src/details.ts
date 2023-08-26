@@ -11,7 +11,7 @@ const renderDetails = async () => {
     const template = `
         <h1>${post.title}</h1>
         <p>${post.body}</p>
-        <a href="/update.html?id=${id}">Update</a>
+        <a class="update-value" href="/update.html?id=${id}">Update</a>
         `;
     containerDetail.innerHTML = template;
 };
@@ -53,7 +53,7 @@ document.getElementById('facebook-share')?.addEventListener('click', (e) => {
 });
 
 
-// Add an "Update" link
+// Add an Update link
 const updateLink = document.createElement('a');
 updateLink.textContent = 'Update';
 updateLink.href = `/update.html?id=${id}`;
