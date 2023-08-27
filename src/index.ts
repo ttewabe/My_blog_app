@@ -7,9 +7,12 @@ type Blog={
     body:string,
     likes:number
 }
+const postsPerPage = 2; 
+let currentPage = 1; 
 
-const renderPosts = async (term: string | null) => {
-    let uri = 'http://localhost:3000/posts?_sort=likes&_order=desc';
+const renderPosts = async (term: string | null, page: number)  => {
+    //`_page=${page} and _limit=${postsPerPage} are query parameters added to the URL.
+    let uri = `http://localhost:3000/posts?_sort=likes&_order=desc&_page=${page}&_limit=${postsPerPage}`;
     if (term) {
         uri += `&q=${term}`;//placeholder that will be replaced with the actual value of the term variable
     }
@@ -54,7 +57,50 @@ const renderPosts = async (term: string | null) => {
 
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    renderPosts((searchForm.term as HTMLInputElement).value.trim());
+    renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
 });
 
-window.addEventListener('DOMContentLoaded', () => renderPosts(null));
+//Add pagination
+const renderPagination = (totalPosts: number) => {
+    //Math.ceil(): JS function that rounds a number up to the nearest integer
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+    const paginationContainer = document.querySelector('.pagination') as HTMLElement;
+    
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageItem = document.createElement('li');
+        pageItem.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;
+        paginationContainer.appendChild(pageItem);
+    }
+
+    // Add event listeners to pagination links
+    const pageLinks = document.querySelectorAll('.pagination a');
+    pageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default link behavior
+            currentPage = parseInt(e.target.getAttribute('data-page') || '1');
+            renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
+        });
+    });
+};
+
+// Add event listeners to Previous and Next buttons
+const prevButton = document.getElementById('prevPage') as HTMLElement;
+const nextButton = document.getElementById('nextPage') as HTMLElement;
+
+prevButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    currentPage++;
+    renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderPosts(null, currentPage); // Fetch and display the first page of posts
+});
