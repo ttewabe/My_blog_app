@@ -2,7 +2,7 @@ $font-stack:'Roboto', sans-serif;
 $primary-color:#ffffff;
 $bg: #dedede;
 $color: #000000;
-$text-bg:#324044,;
+$text-bg:#324044;
 $bg-me:linear-gradient(to bottom, #0c6d9a, #74cbe8);
 $red-bg:rgb(103, 18, 18);
 
@@ -13,7 +13,7 @@ body {
   font-family: $font-stack;
   color: $primary-color;
   max-width: 960px;
-  margin: 100px auto;
+  margin: 80px auto;
   padding: 10px;
 
   nav {
@@ -134,7 +134,7 @@ form {
 
 /* post list */
 .post {
-  width: 98%;
+  width: 95%;
   padding: 20px;
   background: $text-bg;
   border-radius: 10px;
@@ -222,5 +222,10 @@ button {
     margin: 40px 0;
     display: flex;
     justify-content: space-between;
+    button{
+      background: $bg-me;
+      color: $primary-color;
+    }
   }
+
 }

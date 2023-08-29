@@ -16,8 +16,11 @@ const renderPosts = async (term: string | null, page: number)  => {
     if (term) {
         uri += `&q=${term}`;//placeholder that will be replaced with the actual value of the term variable
     }
+
+    // To check Json-server
     try{
         const res = await fetch(uri);
+
     //check if response status is ok. The ok property of the response object is a boolean that indicates whether the HTTP request was successful. 
     if (!res.ok){
         throw new Error ('Network response is not work')
@@ -68,22 +71,52 @@ const renderPagination = (totalPosts: number) => {
     
     paginationContainer.innerHTML = '';
 
+    // Add "Previous" button
+    if (currentPage > 1) {
+        const prevPage = document.createElement('li');
+        prevPage.innerHTML = `<a href="#" data-page="${currentPage - 1}"></a>`;
+        paginationContainer.appendChild(prevPage);
+    }
+
+    // Add page numbers
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('li');
-        pageItem.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;//data-page="${i}" is a custom data attribute in HTML. Use to store data and ${i} will be replaced with the current value of i
+
+        //data-page="${i}" is a custom data attribute in HTML. Use to store data and ${i} will be replaced with the current value of i
+        pageItem.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;
         paginationContainer.appendChild(pageItem);
+    }
+
+    // Add "Next" button
+    if (currentPage < totalPages) {
+        const nextPage = document.createElement('li');
+        nextPage.innerHTML = `<a href="#" data-page="${currentPage + 1}"></a>`;
+        paginationContainer.appendChild(nextPage);
     }
 
     // Add event listeners to pagination links
     const pageLinks = document.querySelectorAll('.pagination a');
     pageLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent the default link behavior
-            currentPage = parseInt(e.target.getAttribute('data-page') || '1');//used to extract the value of the data-page attribute from an HTML element and assign it to the currentPage variable after string convert to integer
+            e.preventDefault(); 
+
+        //used to extract the value of the data-page attribute from an HTML element and assign it to the currentPage variable after string convert to integer
+            currentPage = parseInt(e.target.getAttribute('data-page') || '1');
+
             renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
         });
     });
 };
+
+
+// Function to update the current page number display
+const updateCurrentPageDisplay = () => {
+    const currentPageDisplay = document.getElementById('currentPage');
+    if (currentPageDisplay) {
+        currentPageDisplay.textContent = `Page ${currentPage}`;
+    }
+};
+
 
 // Add event listeners to Previous and Next buttons
 const prevButton = document.getElementById('prevPage') as HTMLElement;
@@ -93,14 +126,20 @@ prevButton.addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
         renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
+        updateCurrentPageDisplay()
     }
 });
 
 nextButton.addEventListener('click', () => {
     currentPage++;
     renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
+    updateCurrentPageDisplay()
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    renderPosts(null, currentPage); // Fetch and display the first page of posts
+    // Fetch and display the first page of posts
+    renderPosts(null, currentPage);
+
+    // Update the current page number display when the page loads
+    updateCurrentPageDisplay()
 });
