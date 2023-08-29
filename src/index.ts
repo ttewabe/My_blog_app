@@ -31,7 +31,7 @@ const renderPosts = async (term: string | null, page: number)  => {
         template += `
             <div class="post">
                 <h2>${post.title}</h2>
-                <p><small>${post.likes} likes</small></p>
+                <ul><small>${post.likes} likes</small></ul>
                 <p>${post.body.slice(0, 200)}</p>
                 <a href="/details.html?id=${post.id}">Read more...</a>
                 <button class="update-button" data-id="${post.id}">Update</button>
@@ -62,7 +62,7 @@ searchForm.addEventListener('submit', (e) => {
 
 //Add pagination
 const renderPagination = (totalPosts: number) => {
-    //Math.ceil(): JS function that rounds a number up to the nearest integer
+
     const totalPages = Math.ceil(totalPosts / postsPerPage);
     const paginationContainer = document.querySelector('.pagination') as HTMLElement;
     
@@ -70,7 +70,7 @@ const renderPagination = (totalPosts: number) => {
 
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('li');
-        pageItem.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;
+        pageItem.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;//data-page="${i}" is a custom data attribute in HTML. Use to store data and ${i} will be replaced with the current value of i
         paginationContainer.appendChild(pageItem);
     }
 
@@ -79,7 +79,7 @@ const renderPagination = (totalPosts: number) => {
     pageLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent the default link behavior
-            currentPage = parseInt(e.target.getAttribute('data-page') || '1');
+            currentPage = parseInt(e.target.getAttribute('data-page') || '1');//used to extract the value of the data-page attribute from an HTML element and assign it to the currentPage variable after string convert to integer
             renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
         });
     });

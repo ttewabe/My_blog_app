@@ -1,102 +1,27 @@
-// Pagination
+//pagination 
+`<a href="#" data-page="${i}">${i}</a>
+is an HTML anchor (<a>) element with two attributes: href and data-page. Here's what each part does:
 
+<a>: This is the HTML anchor element, often referred to as a link. It's used to create hyperlinks that can take users to other web pages or locations within the same page.
 
-Adding useful features to my blog page can enhance user experience and engagement. 
+href="#": The href attribute specifies the URL that the link points to. In this case, it's set to "#", which is commonly used as a placeholder URL. When the user clicks this link, it typically doesn't navigate to a new page but may trigger JavaScript events or scroll to a specific section of the current page due to the "#" character.
 
-User Comments and Discussions: Allow readers to leave comments on your blog posts. 
+data-page="${i}": The data-page attribute is a custom data attribute in HTML. It allows you to store custom data associated with an HTML element. In this case, it's set to the value ${i}, which means it will be replaced with the value of the i variable when the HTML is generated. The purpose of this attribute is often to store additional data that JavaScript can access later.
 
-Social Media Sharing: Integrate social media sharing buttons that allow readers to easily share your blog posts on platforms like Facebook, Twitter, LinkedIn, etc. 
+${i}: This is a placeholder for a JavaScript variable called i. When the HTML is generated dynamically (e.g., within a loop), ${i} will be replaced with the current value of i. This is a common technique used to generate unique values or content for each iteration of a loop.
 
-Related Posts: Display a section at the end of each blog post that suggests related articles. This can keep readers on your site longer and expose them to more of your content.
+// currentPage
+The code snippet currentPage = parseInt(e.target.getAttribute('data-page') || '1'); is used to extract the value of the data-page attribute from an HTML element and assign it to the currentPage variable after converting it to an integer. Let's break down this line of code step by step:
 
-Tags and Categories: Implement a tagging and categorization system for your blog posts. This can help readers navigate your content more easily and find posts that interest them.
+e: This typically represents an event object, often passed as a parameter to an event handler function. In this context, it's an event object representing the click event on an HTML element.
 
-Featured Posts or Slider: Showcase featured or recent posts prominently on your blog's homepage. This can highlight your best or most recent content and catch the reader's attention.
+e.target: The target property of the event object refers to the HTML element that triggered the event. In this case, it's the HTML element that was clicked, which should be one of the pagination links or buttons.
 
-Email Subscription: Allow readers to subscribe to your blog via email. This way, they'll receive updates whenever you publish new content.
+getAttribute('data-page'): This part of the code retrieves the value of the data-page attribute from the clicked HTML element. The getAttribute method is used to access custom data attributes like data-page in HTML elements. The data-page attribute typically stores the page number associated with that particular link or button.
 
+parseInt(...): The parseInt function is used to parse a string and convert it to an integer. In this context, it's used to convert the value of the data-page attribute, which is initially a string, to an integer. This integer represents the page number.
 
-when FilterIcon  open make filter icon active and when FilterIcon close make filter icon not active 
-"
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ColumnProps } from "primereact/column";
-import { IDataGridProps } from "./DataGrid";
-import { IDataGridColumn } from "./DataGrid.model";
-import { FilterPopup } from "./FilterPopup";
-import { FilterIcon } from "./DataGrid.style";
+|| '1': The || operator is the logical OR operator. If the getAttribute('data-page') part doesn't return a valid integer (for example, if the data-page attribute is missing or empty), the || '1' part provides a default value of '1'. So, if the data-page attribute is missing or empty, it assumes that the current page is page 1.
 
-export const useFilterable = (props: IDataGridProps, ref: React.MutableRefObject<any>) => {
-  const [showFilterPopup, setShowFilterPopup] = useState<boolean>(false);
-  const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
-  const [filterTemplate, setFilterTemplate] = useState<JSX.Element | null>(null);
-  const [filterIconContainer, setFilterIconContainer]= useState<HTMLSpanElement>();
-  const filterIconContainerRef= useRef<HTMLSpanElement>();
-  const selectedColumnIdRef = useRef<string>();
-
-  const prefix = "grid-" + Math.random().toString(36).substr(2, 9) + "-";
-
-  useEffect(() => {
-    if (showFilterPopup) {
-      setShowFilterPopup(false);
-    }
-
-    // Mark the column title to support style adjustment of other header icons.
-    (ref.current as HTMLDivElement)?.querySelectorAll(".mi-filterable").forEach(elem => {
-      elem.closest(".p-column-title")?.classList.add("mi-filterable-column");
-    });
-  }, [props.columns]);
-
-  const handleFilterIconClick = (event: React.MouseEvent<HTMLSpanElement>, column: IDataGridColumn) => {
-   const iconContainer = event.target as HTMLSpanElement;
-    filterIconContainerRef.current = filterIconContainer;
-    setSelectedColumnIdRef.current = column.id;
-    filterIconContainerRef.current?.classList.remove("active");
-
-    setFilterTemplate(column.filterTemplate?.(column) ?? null);
-    setSelectedColumnId(column.id);
-    setFilterIconContainer(iconContainer);
-
-    if (selectedColumnIdRef.current == selectedColumnId) {
-      setShowFilterPopup(!showFilterPopup);
-
-    } else {
-      setShowFilterPopup(true);
-      iconContainer?.classList.add("active");
-    }
-  };
-
-  const buildColumnProps = (columnProps: ColumnProps, column: IDataGridColumn): ColumnProps => {
-    return {
-      ...columnProps,
-      header: column.filterTemplate ? (
-        <span className="mi-filterable">
-          {columnProps.header}
-          <FilterIcon
-            id={prefix + column.id}
-            filtered={column.filtered}
-            onClick={(event: React.MouseEvent<HTMLSpanElement>) => handleFilterIconClick(event, column)}
-          ></FilterIcon>
-        </span>
-      ) : (
-        columnProps.header
-      )
-    };
-  };
-
-  const handleClose = () => {
-    setShowFilterPopup(false);
-    filterIconContainerRef.current?.classList.remove("active");
-    
-    setShowFilterPopup(true);
-  };
-
-  const filterPopup = showFilterPopup && selectedColumnId && filterTemplate && (
-    <FilterPopup targetId={prefix + selectedColumnId} onClose={() => handleClose()}>
-      {filterTemplate}
-    </FilterPopup>
-  );
-
-  return { buildColumnProps, filterPopup };
-};
-
-"
+In summary, this line of code extracts the page number from the data-page attribute of the clicked HTML element. If the attribute is missing or empty, it defaults to page 1. The extracted page number is then assigned to the currentPage variable, typically for the purpose of updating the current page when a pagination link or button is clicked.
+`
