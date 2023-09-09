@@ -9,10 +9,14 @@ const renderDetails = async () => {
     const post = await res.json();
 
     const template = `
-        <h1>${post.title}</h1>
-        <p>${post.body}</p>
+        <div class="details-container">
+            <h1>${post.title}</h1>
+            <p>${post.body}</p>
+        </div>
+        <div>
         <a class="update-value" href="/update.html?id=${id}">Update</a>
-        `;
+        </div>
+    `;
     containerDetail.innerHTML = template;
 };
 

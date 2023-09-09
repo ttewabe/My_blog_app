@@ -127,6 +127,16 @@ prevButton.addEventListener('click', () => {
         currentPage--;
         renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
         updateCurrentPageDisplay()
+
+        // Enable the "Next" button when going back to a previous page
+        if (currentPage < totalPages) {
+            nextButton.classList.remove('disabled');
+        }
+        
+        // Disable the "Previous" button when reaching the first page
+        if (currentPage === 1) {
+            prevButton.classList.add('disabled');
+        }
     }
 });
 
@@ -134,6 +144,16 @@ nextButton.addEventListener('click', () => {
     currentPage++;
     renderPosts((searchForm.term as HTMLInputElement).value.trim(), currentPage);
     updateCurrentPageDisplay()
+
+       // Enable the "Previous" button when going forward to the next page
+       if (currentPage > 1) {
+        prevButton.classList.remove('disabled');
+    }
+    
+    // Disable the "Next" button when reaching the last page
+    if (currentPage === totalPages) {
+        nextButton.classList.add('disabled');
+    }
 });
 
 window.addEventListener('DOMContentLoaded', () => {
